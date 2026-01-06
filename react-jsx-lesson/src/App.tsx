@@ -31,8 +31,8 @@ function App() {
             </p>
             <p>
                 <button onClick={handleName}>change name</button>
-                <button onClick={incrementCount}>increment</button>
                 <button onClick={decrementCount}>decrement</button>
+                <button onClick={incrementCount}>increment</button>
             </p>
         </>
     )
