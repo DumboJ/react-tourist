@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import './App.css'
+import MyButton from "./MyButton.tsx";
 
 function App() {
     const [count, setCount] = useState(0)
@@ -34,6 +35,12 @@ function App() {
                 <button onClick={decrementCount}>decrement</button>
                 <button onClick={incrementCount}>increment</button>
             </p>
+            <h3>单独计数的count</h3>
+            <p>
+                <MyButton/>
+                <MyButton/>
+            </p>
+            <h3>状态提升</h3>
         </>
     )
 }
