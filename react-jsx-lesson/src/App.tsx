@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import './App.css'
 import MyButton from "./MyButton.tsx";
+import SubButton from "./SubButton.tsx";
 
 function App() {
     const [count, setCount] = useState(0)
@@ -40,9 +41,12 @@ function App() {
                 <MyButton/>
                 <MyButton/>
             </p>
-            <h3>状态提升</h3>
+            <h3>状态提升,公用一个计数</h3>
+            < SubButton count={count} onClick={incrementCount}/>
+            < SubButton count={count} onClick={incrementCount}/>
         </>
     )
 }
+
 
 export default App
