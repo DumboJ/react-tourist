@@ -116,6 +116,10 @@ function FilterableProductTable(props: { products }) {
     const [filterText,setFilterText] = useState('')
     //默认未勾选复选框
     const [isStockOnly,setIsStockOnly] = useState(false)
+    //等价于状态提升时，单独提取setState的函数
+    const onFilterTextChangeOther = ()=>{
+        setFilterText()
+    }
     return (
         <div>
             <SearchBar
