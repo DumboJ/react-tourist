@@ -41,7 +41,7 @@ function App() {
                 <MyButton/>
                 <MyButton/>
             </p>
-            <h3>状态提升,公用一个计数</h3>
+            <h3>状态提升,共用一个计数(父组件定义state,传递给子组件使用)</h3>
             < SubButton count={count} onClick={incrementCount}/>
             < SubButton count={count} onClick={incrementCount}/>
         </>
