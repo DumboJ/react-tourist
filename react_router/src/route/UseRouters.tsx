@@ -6,22 +6,24 @@ import HookUseNavigate from "../pages/HookUseNavigate.tsx";
 import PageNotFound from "../pages/PageNotFound.tsx";
 
 function UseRouters() {
-    const route = useRoutes([
-        {
-            path:"/",
-            element:<App/>
-        },
-        {
-            path:"/react",
-            element:<ReactPage/>
-        },{
-            path:"/useNavigate",
-            element:<HookUseNavigate/>
-        },{
-            path:"/notFount",
-            element:<PageNotFound/>
-        }
-    ])
+    const route = useRoutes(
+        [
+            {
+                path:"/",
+                element:<App/>
+            },
+            {
+                path:"/react",
+                element:<ReactPage/>
+            },{
+                path:"/useNavigate",
+                element:<HookUseNavigate/>
+            },{
+                path:"/notFount",
+                element:<PageNotFound/>
+            }
+        ]
+    )
     return route
 }
 export default UseRouters

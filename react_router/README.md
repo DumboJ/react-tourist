@@ -100,7 +100,113 @@ export default CreateRouters
 <RouterProvider router={ CreateRouters }/>
 ~~~
 #### 3.路由-其它应用
+##### 3.1 基础路由
+- basename
+ -  路由访问  http:ip:port/basename/xxx
+ - 只有在 createHash/BrownerRouter时可以配置使用
 
+~~~javascript
+  const CreateRouters =  createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>
+  },
+  {
+    path: "/react",
+    element: <ReactPage/>
+  }, {
+    path: "/useNavigate",
+    element: <HookUseNavigate/>
+  }, {
+    path: "/notFount",
+    element: <PageNotFound/>
+  }
+  ],{
+    basename:'/bus'
+  })
+export default CreateRouters
+~~~
+##### 3.2 动态路由
+- useParams
+- 访问路径 http://localhost:5173/bus/line/15路
+- 路由定义
+```javascript 
+    {
+        path:'/line/:lineId',
+        element: <BusLine/>
+    }
+ ```
+~~~javascript
+  import {useParams} from "react-router-dom";
+
+  function BusLine() {
+    //可以获取路径动态传递参数，但需保证参数名同路由路径传递的一致
+    const param = useParams()
+    return (
+            <>
+              <h1>这是公交车总览页面</h1>
+              <span>公交:{param.lineId}</span>
+            </>
+    )
+  }
+  export default BusLine
+~~~
+##### 3.1 嵌套路由（子路由）
+- Outlet 在父组件中使用
+- 子组件中路径是相对路径，相对于父路由范围
+- 访问例子:http://localhost:5173/bus/line/15路/busGps
+- 父路由页面引入Outlet
+~~~javascript
+  function BusLine() {
+    //可以获取路径动态传递参数，但需保证参数名同路由路径传递的一致
+    const param = useParams()
+    return (
+            <>
+              <h1>这是公交车总览页面</h1>
+              <span>公交线路:{param.lineId}</span>
+              //显示子路由页面组件的容器
+              <Outlet/>
+            </>
+    )
+  }
+~~~
+- 子路由配置
+~~~javascript
+        {
+            path:'/line/:lineId',
+            element: <BusLine/>,
+            children:[
+              {
+                path: 'busStations',
+                element: <BusStations/>
+              },{
+                path: 'busGps',
+                element: <BusGps/>
+              }
+            ]
+        }
+~~~
+- 子路由页面
+~~~javascript
+  import {useParams} from "react-router-dom";
+
+  function BusGps(){
+    const params = useParams()
+    return (
+            <>
+              <h1>公交动态数据</h1>
+              <span>线路:{params.lineId}</span>
+              <th>
+                locations
+              </th>
+              <tr>位置1</tr>
+              <tr>位置2</tr>
+              <tr>位置3</tr>
+            </>
+    )
+  }
+  export default BusGps
+~~~
 
 #### 4.页面导航
 ##### 4.1 NavLink

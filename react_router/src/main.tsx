@@ -1,13 +1,13 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 // import App from './App.tsx'
-import {BrowserRouter,/*RouterProvider, Navigate, Route, Routes*/} from "react-router-dom";
+import {/*BrowserRouter,*/RouterProvider/*, Navigate, Route, Routes*/} from "react-router-dom";
 /*import VitePage from "./pages/VitePage.tsx";
 import ReactPage from "./pages/ReactPage.tsx";
 import NavigatePage from "./pages/NavigatePage.tsx";
 import HookUseNavigate from "./pages/HookUseNavigate.tsx";*/
-import UseRouters from "./route/UseRouters.tsx";
-// import CreateRouters from "./route/CreateRouters.tsx";
+// import UseRouters from "./route/UseRouters.tsx";
+import CreateRouters from "./route/CreateRouters.tsx";
 
 
 createRoot(document.getElementById('root')!).render(
@@ -25,9 +25,9 @@ createRoot(document.getElementById('root')!).render(
       </Routes>
   </BrowserRouter>,*/
     //2. useRoutes API 定义路由组件，!!返回函数组件
-    <BrowserRouter>
+    /*<BrowserRouter>
         <UseRouters/>
-    </BrowserRouter>
+    </BrowserRouter>*/
     //useRoutes API 定义路由组件，返回的是声明 类型别名 Type Alias,非函数组件，配合 RouterProvider 使用
-    /*<RouterProvider router={ CreateRouters }/>*/
+    <RouterProvider router={ CreateRouters }/>
 )
