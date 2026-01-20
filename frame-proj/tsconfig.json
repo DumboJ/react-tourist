@@ -1,7 +1,23 @@
 {
+  "compilerOptions": {
+    "baseUrl": "./",
+    //空间目录
+    "paths": {
+      "@/*": [
+        "src/*"//映射src下的所有
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ],
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }
