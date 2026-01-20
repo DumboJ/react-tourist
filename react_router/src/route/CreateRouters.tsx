@@ -8,10 +8,11 @@ import VitePage from "../pages/VitePage.tsx";
 import BusLine from "../pages/BusLine.tsx";
 import BusStations from "../pages/BusStations.tsx";
 import BusGps from "../pages/BusGps.tsx";
+import Order, {loaderOrder} from "../pages/Order.tsx";
 
 // !! 注意必须是非函数组件，否则RouterProvider
 // 报错提示:TS2322: Type '() => Router' is not assignable to type 'Router'. 要返回type而不是函数组件
-const CreateRouters =  createBrowserRouter([
+const CreateRouters = createBrowserRouter([
     {
         path: "/",
         element: <App/>
@@ -22,26 +23,30 @@ const CreateRouters =  createBrowserRouter([
     }, {
         path: "/react",
         element: <ReactPage/>
-    },{
-        path:'/line/:lineId',
+    }, {
+        path: "/orders/:orderId",
+        element: <Order/>,
+        loader: loaderOrder
+    }, {
+        path: '/line/:lineId',
         element: <BusLine/>,
-        children:[
+        children: [
             {
                 path: 'busStations',
                 element: <BusStations/>
-            },{
+            }, {
                 path: 'busGps',
                 element: <BusGps/>
             }
         ]
-    },{
+    }, {
         path: "/useNavigate",
         element: <HookUseNavigate/>
     }, {
         path: "/notFount",
         element: <PageNotFound/>
     }
-],{
-    basename:'/bus'
+], {
+    basename: '/bus'
 })
 export default CreateRouters

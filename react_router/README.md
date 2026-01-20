@@ -30,7 +30,7 @@
   </Routes>
 </HashRouter>
 ~~~
-##### 2.2 useRoutes - hook api 返回函数
+##### 2.2 useRoutes - hook 返回函数
 ~~~javascript
 //函数组件中使用 useRoutes 创建出路由!!函数!! UseRouters，还是需要与 BrowserRouter 等包裹使用
 //使用 useRoutes 定义路由
@@ -290,4 +290,50 @@ function HookUseNavigate(){
   </Routes>
 </BrowserRouter>
 ~~~
+#### 5. Data API
+`以下几个API路由才可以使用 Data API`
+- createBrowserRouter
+- createHashRouter
+- createStaticRouter
+- createMemoryRouter
+##### 5.1 loader / useLoaderData
+- loader 提前加载，数据传递场景
+- 路由节点中配置，先于 element 组件执行
+- 路由节点新增配置 loader
+~~~javascript
+  {
+  path: "/orders/:orderId",
+          element: <Order/>,
+          loader: loaderOrder
+}
+~~~
+- loader 函数中return传递数据
+~~~javascript
+export function loaderOrder({params}: any) {
+  console.log("loader 执行,{}", params.orderId)
+  //token 存在时传递给组件，不存在时重定向
+  if (!sessionStorage.token) {
+    return redirect("/vite")
+  }
 
+  return {
+    orderId: params.orderId,
+    token: sessionStorage.token
+  }
+}
+~~~
+- 路由element 组件中使用useLoaderData使用参数数据
+~~~javascript
+function Order() {
+  const param = useParams()
+  const loadData = useLoaderData()
+  //加载loader传递数据
+  console.log("loader传递data:", loadData)
+  return (
+          <>
+            订单页面
+            <span>订单id:{ param.orderId }</span>
+          </>
+  )
+}
+~~~
