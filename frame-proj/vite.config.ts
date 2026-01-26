@@ -5,13 +5,13 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
     //服务相关配置
-    /*server: {
-        host: 'localhost',
+    server: {
+       /* host: 'localhost',
         port: 6001,
         proxy: {
-            '/api': 'http://xxxx'
-        }
-    },*/
+            '/api': 'http://localhost:7001'
+        }*/
+    },
     //@路径配置
     resolve: {
         alias: {

@@ -8,23 +8,28 @@ import Tips404 from '@/views/Tips404';
 import Tips403 from '@/views/Tips403';
 // @ts-ignore
 import Login from '@/views/Login';
+//@ts-ignore
+import Test from "@/views/TestReq";
 
 const router = [
     {
         path: '/',
         element: <Welcome/>
-    },{
-        path:"/login",
+    }, {
+        path: "/login",
         element: <Login/>
-    },{
-        path:"/403",
+    }, {
+        path: "/403",
         element: <Tips403/>
     },
     {
-        path:"/404",
+        path: "/404",
         element: <Tips404/>
-    },{
-        path:"*",
+    }, {
+        path: '/test',
+        element: <Test/>
+    }, {
+        path: "*",
         element: <Navigate to='/404'/>
     }
 ]

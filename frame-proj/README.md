@@ -126,3 +126,132 @@ function Tips404() {
 
 export default Tips404
 ```
+#### 3.请求组件 axios 的封装
+##### 3.1 (官网资料)[https://www.npmjs.com/package/axios?activeTab=readme]
+##### 3.2 添加 axios 工具包
+```shell
+yarn add axios
+```
+##### 3.3 基础请求方式的封装
+```ts
+import axios from "axios";
+/*封装 axios 的get/post请求 */
+let instance:any = axios.create({
+    baseURL: 'http://localhost:7001/',
+    timeout: 1000,
+    timeoutErrorMessage:"请求超时，请稍后重试",//请求超时文案
+    withCredentials:true,//默认跨域
+    headers: {'X-Custom-Header': 'foobar'}
+});
+
+export default {
+    get(url:string,params:any){
+        return instance.get(url, {params});
+    },
+    post(url:string,params:any){
+        return instance.post(url, params);
+    }
+}
+```
+##### 3.4 请求的发送
+`http://localhost:5173/axios`
+```ts
+//路由配置新增
+{
+    path: '/axios',
+    element: <TestReq/>
+}
+```
+```tsx
+//页面组件
+import {useEffect} from "react";
+import request from "../utils/request";
+
+function TestReq() {
+    useEffect(()=>{
+        request.get(
+            "/roles",
+            {"id": 11212}
+        ).catch((error:any)=>{
+            console.log(error)
+        })
+    },[])
+    useEffect(()=>{
+        request.post(
+            "/admin",
+            {"tt": 213}
+        ).catch((error:any)=>{
+            console.log(error)
+        })
+    },[])
+    return (
+        <>
+            <div className="hdr"> 测试通过 Axios 发送请求 </div>
+        </>
+    )
+}
+
+export default TestReq
+```
+#### 4. 引入 ant design 加载组件 <Spin/>
+[Spin组件使用说明](https://ant-design.antgroup.com/components/spin-cn)
+##### 4.1 引入antd的<Spin/> 元素（需由函数组件包裹）
+```tsx
+    import {Spin} from "antd";
+    //引入样式
+    import './load.less'
+    //需要子元素包裹才会显示 tip 值
+    const content = <div style={{padding:50,background: 'rgba(0, 0, 0, 0.05)', borderRadius: 2,}}/>
+    //包装组件 提示信息可传入，默认值 'loading'
+    function Loading({tips='loading'}:{tips:string}){
+        return <Spin tip={tips} size='large' className='request-loading'>
+            {content}
+        </Spin>
+    }
+    export default Loading
+```
+##### 4.2 创建显示和隐藏加载组建的方法
+```tsx
+    //展示加载组件
+    import ReactDom from "react-dom/client";
+    import Loading from "../../utils/loading/Loading";
+    let count = 0
+    export const showLoading = () => {
+        if (count === 0) {
+            //创建html节点
+            const loading = document.createElement("div");
+            loading.setAttribute('id','loading')
+            //元素追加到body中
+            document.body.appendChild(loading)
+            //渲染组件
+            ReactDom.createRoot(loading).render(<Loading tips='加载中...'/>)
+        }
+        count++;
+    };
+    //隐藏加载组件
+    export const hideLoading = () => {
+        if (count > 0) {
+            count--;
+        }
+        if (count === 0) {
+            document.body.removeChild(document.getElementById('loading') as HTMLDivElement);
+        }
+    };
+```
+##### 4.3 js id选择器为引入的加载组件添加样式 
+- 安装 less ` yarn add less`
+- 写样式
+```less
+    #loading {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+```
+- 引入 见 4.1
