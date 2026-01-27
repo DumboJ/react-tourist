@@ -255,3 +255,91 @@ export default TestReq
     }
 ```
 - 引入 见 4.1
+
+#### 5.引入css 动画搭配iconfont完成加载组件
+- (iconfont)[https://www.iconfont.cn/?spm=a313x.search_index.i3.2.7b043a81w1xIO1]
+- (css动画演示)[https://www.runoob.com/css3/css3-animations.html]
+  - animation: name duration timing-function delay iteration-count direction fill-mode play-state;
+##### 5.1 引入一个icon并设置动画
+- index 页面新增div 并插入 svg 代码
+- 为 svg class 添加样式
+```css
+    .svgLoad{
+        animation: aniSvg linear 2s infinite;
+    }
+    @keyframes aniSvg {
+        from{
+            /*从某个角度旋转开始*/
+            transform: rotate(0deg);
+        }
+        to{
+            transform: rotate(360deg);
+        }
+    }
+```
+##### 5.2 封装 localStorage API
+```ts
+// 封装针对 localStorage 工具类
+export default {
+    set(key: string, val: any) {
+        localStorage.setItem(key, JSON.stringify(val));
+    },
+    get(key: string){
+        const value = localStorage.getItem(key)
+        if (value)
+        try {
+            return JSON.parse(value)
+        }catch (error){
+            return value
+        }
+    },
+    del(key:string){
+        localStorage.removeItem(key)
+    },
+    clear(){
+        localStorage.clear()
+    }
+}
+```
+- 组件中测试使用
+```tsx
+  // @ts-ignore
+import {showLoading} from "@/utils/loading";
+import {Button} from "antd";
+//@ts-ignore
+import storage from "@/utils/storage";
+
+function TestStorage() {
+  const handleInsert = (type: number) => {
+    if (type === 1) {
+      storage.set("f", 1234);
+      storage.set("product", {id: 1, type: 'phone', price: 1399})
+    } else if (type === 2) {
+      console.log(storage.get('product'))
+    } else if (type === 3) {
+      storage.del('f');
+    } else {
+      storage.clear();
+    }
+  }
+
+  return (
+          <>
+            <div className="bt">
+              <Button onClick={ () => handleInsert(1) }>新增</Button>
+            </div>
+            <div className="bt">
+              <Button onClick={ () => handleInsert(2) }>获取</Button>
+            </div>
+            <div className="bt">
+              <Button onClick={ () => handleInsert(3) }>删除</Button>
+            </div>
+            <div className="bt">
+              <Button onClick={ () => handleInsert(4) }>清空</Button>
+            </div>
+          </>
+  )
+}
+
+export default TestStorage
+```

@@ -10,6 +10,8 @@ import Tips403 from '@/views/Tips403';
 import Login from '@/views/Login';
 //@ts-ignore
 import Test from "@/views/TestReq";
+//@ts-ignore
+import TestStorage from "@/views/TestStorage";
 
 const router = [
     {
@@ -28,6 +30,9 @@ const router = [
     }, {
         path: '/test',
         element: <Test/>
+    }, {
+        path: 'testStorage',
+        element: <TestStorage/>
     }, {
         path: "*",
         element: <Navigate to='/404'/>
