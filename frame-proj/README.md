@@ -343,3 +343,81 @@ function TestStorage() {
 
 export default TestStorage
 ```
+
+#### 6. 环境变量相关
+##### 6.1 vite 编译时环境变量
+`Vite 提供一套编译时环境变量，通过 import.meta.env 获取`
+- 构建问题
+  可指定模式 ，引入不同的环境
+```
+vite build --mode staging
+```
+同时package.json中的build 命令新增可以指定模式
+```json
+"build:stag": "tsc -b && vite build --mode staging",
+```
+ 需要搭配 .env.staging 项目根目录文件使用
+- 环境变量声明问题
+  必须以 VITE_ 开头
+##### 6.2 运行时环境变量
+- 设置
+  - 编写 环境配置
+```ts
+//环境变量封装
+type ENV = 'dev' | 'pre' | 'prod'
+
+const env: ENV = (document.documentElement.dataset.env as ENV) || 'dev'
+
+const config = {
+    'dev': {
+        baseApi: 'localhost:8080',
+        appPicAddr: 'localhost:8081',
+        isMock:true,
+        content:'this is dev environment'
+    },
+    'pre': {
+        baseApi: 'pre:8080',
+        appPicAddr: 'pre:8081',
+        isMock:true,
+        content:'this is pre environment'
+    },
+    'prod': {
+        baseApi: 'prod:8080',
+        appPicAddr: 'prod:8081',
+        isMock:true,
+        content:'this is prod environment'
+    }
+}
+export default {
+    env,
+    //析构出对应配置
+    ...config['prod']
+}
+```
+  - 在index.html 中通过 data-env 引用配置
+```html
+<html lang="en" data-env>
+```
+- 获取
+通过 `document.documentElement.dataset.env`
+- 使用(简单用法:展示环境配置的内容)
+```tsx
+import request from "../utils/request";
+// @ts-ignore
+import {showLoading} from "@/utils/loading";
+import env from '../config'
+
+function Test() {
+  let content ;
+  if (env.isMock) {
+    content = env.content
+  }
+  return (
+          <>
+            <div>{content}</div>
+          </>
+  );
+}
+
+export default Test
+```

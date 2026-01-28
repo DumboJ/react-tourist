@@ -1,5 +1,6 @@
 import axios from "axios";
 import { showLoading} from "../utils/loading";
+console.log(import.meta.env)
 /*封装 axios 的get/post请求 */
 const instance:any = axios.create({
     baseURL: 'http://localhost:7001/',

@@ -9,7 +9,7 @@ import Tips403 from '@/views/Tips403';
 // @ts-ignore
 import Login from '@/views/Login';
 //@ts-ignore
-import Test from "@/views/TestReq";
+import Test from "@/views/Test";
 //@ts-ignore
 import TestStorage from "@/views/TestStorage";
 
