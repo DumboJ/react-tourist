@@ -3,6 +3,8 @@ import request from "../utils/request";
 // @ts-ignore
 import {showLoading} from "@/utils/loading";
 import env from '../config'
+// @ts-ignore
+import {formatDate, formatMoney, formatToDate} from "@/utils";
 
 function Test() {
     useEffect(()=>{
@@ -25,6 +27,8 @@ function Test() {
     if (env.isMock) {
         content = env.content
     }
+    console.log(formatMoney('123456.8861'))
+    console.log(formatToDate(''))
     return (
         <>
             <div className="hdr"> 测试通过 Axios 发送请求 </div>
